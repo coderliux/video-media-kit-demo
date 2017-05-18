@@ -14,7 +14,7 @@ const {width, height} = Dimensions.get('window');
 import {Video} from 'react-native-media-kit';
 
 const HTTP = [
-  'http://v.yoai.com/femme_tampon_tutorial.mp4'
+  'http://localhost:8085/video/broadchurch.mp4'
 ];
 
 const HLS = [
@@ -43,9 +43,9 @@ export default class App extends Component {
         style={{flex: 1, backgroundColor: '#efefef'}}>
         <Video
           style={{width: this.state.width, height: this.state.height, marginTop: 50, backgroundColor: 'black'}}
-          autoplay={true}
-          preload='none'
-          loop={true}
+          autoplay={false}
+          preload='auto'
+          loop={false}
           controls={this.state.controls}
           muted={this.state.muted}
           src={HTTP[0]}
