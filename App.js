@@ -6,7 +6,8 @@ import {
     View,
     Dimensions,
     ScrollView,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -14,7 +15,7 @@ const {width, height} = Dimensions.get('window');
 import {Video} from 'react-native-media-kit';
 
 const HTTP = [
-    'http://localhost:8085/video/broadchurch.mp4'
+    'http://192.168.2.105:8085/video/broadchurch.mp4'
 ];
 
 const HLS = [
@@ -36,13 +37,20 @@ export default class App extends Component {
             this.setState({
                 width: height,
                 height: width,
-                marginTop:0,
+                marginTop: 0
             })
         } else {
             this.setState({
                 width: width,
                 height: width / (16 / 9),
-                marginTop:22
+                ...Platform.select({
+                    ios: {
+                        marginTop: 22,
+                    },
+                    android: {
+                        marginTop: 0,
+                    }
+                })
             })
         }
     }
@@ -52,7 +60,14 @@ export default class App extends Component {
         width: width,
         height: width / (16 / 9),
         controls: true,
-        marginTop:22
+        ...Platform.select({
+            ios: {
+                marginTop: 22,
+            },
+            android: {
+                marginTop: 0,
+            }
+        })
     };
 
     render() {
@@ -74,7 +89,6 @@ export default class App extends Component {
                     src={HTTP[0]}
                     screenRotation={this._screenRotation.bind(this)}
                 />
-
             </ScrollView>
         );
     }
